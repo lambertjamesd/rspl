@@ -60,7 +60,7 @@ RSPL will be linkable with other RSPL files and even RSP assembly. This will let
 
 # Data Types
 
-Data types will be limited to what is native to the RSP. Any data types that cannot be used natively, such as floating point numbers, will not be done in software. The following primitive data types will be suppported
+Data types will be limited to what is native to the RSP. Any data types that cannot be used natively, such as floating point numbers, will not be supported by RSPL. The following primitive data types will be suppported
 
 | Type Name | Bytes | Description                    |
 |:----------|:-----:|:-------------------------------|
@@ -73,7 +73,7 @@ Data types will be limited to what is native to the RSP. Any data types that can
 | s16       | 2     | Signed 16 bit integer          |
 | s8        | 1     | Signed 8 bit integer           |
 | bool      | 1     | Has the value of true or false |
-| dmem_addr | 2     | An address in DMEM             |
+| type~     | 2     | An address in DMEM             |
 | type*     | 4     | An address in main memory      |
 
 There will also be vector types. All vector types are 8 elements wide.
@@ -103,3 +103,13 @@ u32 vectorDotProduct(vu16 a, vu16 b) {
 
 RSPL will have built in functions to generate RDP commands
 
+```
+void generateRDPCommands(u32~ dl) {
+    gDPPipeSync(dl++);
+    gDPTileSync(dl++);
+    gDPLoadSync(dl++);
+    gDPSetColorImage(dl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_WD, OS_K0_TO_PHYSICAL(colorBuffer));
+    gDPPipeSync(dl++);
+}
+
+```
